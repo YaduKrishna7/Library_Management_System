@@ -1,2 +1,3 @@
-# Library_Management_System
-Mini Project
+# Library_Management_System - Mini Project
+
+Library Management System is a Python-based command-line application developed using SQLite3 to manage books, members, user accounts, book requests, and borrowing transactions. The system provides two roles, Librarian and Member. The Librarian can manage books and members, review book requests, approve or reject requests, issue books, process returns, and view borrowing records. Members can sign in to view their profile, search available books, request books, view their request status, view borrowed books, and check their borrowing history. The application includes Sign Up and Sign In functionality, role-based access, CRUD operations, database relationships, input validation, and exception handling. SQLite is used as the database and Python's sqlite3 library is used for database connectivity. This project is developed as a Python and SQL mini project to demonstrate practical database management and Python programming concepts.
