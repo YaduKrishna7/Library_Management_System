@@ -1,0 +1,219 @@
+LIBRARY MANAGEMENT SYSTEM
+=========================
+
+Abstract
+========
+The Library Management System is a Python-based command-line application developed to manage books, 
+library members, user accounts, book requests, and borrowing transactions using an SQLite database. 
+The system provides two roles, Librarian and Member, where the Librarian performs administrative operations 
+and Members interact with the library services. Librarians can manage books and members, review book requests, 
+approve or reject requests, issue books, process returns, and view borrowing records. Members can sign in, 
+view their profile, search available books, request books, track request status, view currently borrowed books, 
+and access their borrowing history. The system uses relational database tables and foreign-key relationships to 
+maintain consistent records and supports CRUD operations, authentication, input validation, and exception handling. 
+The project demonstrates the practical application of Python programming and SQL database concepts through a 
+structured and user-friendly command-line system.
+
+Objective
+=========
+1. To develop a Python-based library management application using SQLite3 for storing and managing library data.
+2. To manage books efficiently, including adding, viewing, searching, updating, and deleting book records.
+3. To manage library members and maintain their information in a structured database.
+4. To provide secure user authentication through Sign Up and Sign In with separate roles for Librarian and Member.
+5. To allow Members to search and view available books and submit requests for books they want to borrow.
+6. To allow Librarians to manage book requests by approving or rejecting requests.
+7. To manage book issuing and returning and maintain accurate borrowing records.
+8. To maintain borrowing history so Members and Librarians can track previous and current book transactions.
+9. To implement a relational database using tables, primary keys, foreign keys, and appropriate constraints.
+10. To implement CRUD operations, input validation, and exception handling to ensure reliable and consistent application functionality.
+
+Requirements
+============
+->Use Python and SQLite3
+
+The project is developed using Python and SQLite3.
+
+Python handles the application logic and CLI, while SQLite stores:
+
+* Users
+* Books
+* Members
+* Borrowings
+* Book requests
+
+Features
+========
+1.Authentication
+----------------
+Sign Up with role selection.
+• Librarian login.
+• Member login.
+• Sign In validation.
+• Logout functionality.
+
+2.Librarian Features
+--------------------
+• Add, view, search, update and delete books where relationships permit.
+• Manage member records.
+• View and process book requests.
+• Approve or reject requests.
+• Issue books.
+• Process returned books.
+• View borrowing records.
+
+3.Member Features
+-----------------
+• View My Profile.
+• View Available Books.
+• Search Books.
+• Request a Book.
+• View My Requests.
+• View My Borrowed Books.
+• View My Borrowing History.
+• Logout.
+
+Database Tables
+===============
+1.users table 
+-------------
+Stores login information and user roles.
+
+__________________________________________________________
+| Field    | Data Type | Constraints    | Description    |
+|----------|----------------------------------------------
+| user_id  | INTEGER   | Primary Key,   | Unique user ID |
+|          |           | Auto Increment |                |
+|----------|----------------------------------------------
+| username | TEXT      | NOT NULL,UNIQUE| Login username |
+|----------|----------------------------------------------
+| password | TEXT      | NOT NULL       | Login password |
+|----------|----------------------------------------------
+|          |           | NOT NULL,      | Librarian or   |
+| role     | TEXT      | CHECK          | Member         |
+|__________|___________|________________|________________|
+
+2.books table
+-------------
+Stores information about books available in the library
+
+__________________________________________________________
+| Field    | Data Type | Constraints    | Description    |
+|----------|----------------------------------------------
+| book_id  | INTEGER   | Primary Key,   | Unique book ID |
+|          |           | Auto Increment |                |
+|----------|----------------------------------------------
+| title.   | TEXT      | NOT NULL       | Book title     |
+|----------|----------------------------------------------
+| author   | TEXT      | NOT NULL       | Author name    |
+|----------|----------------------------------------------
+| category | TEXT      |       -        | Book category  |
+|----------|-----------|----------------|----------------|
+| quantity | INTEGER   |       -        |No.of copies    |
+|----------|-----------|----------------|----------------|
+| available|           |                |No.of available |
+| quantity | INTEGER   |       -        | copies         |
+|__________|___________|________________|________________|
+
+3.members table
+---------------
+Stores information about library members.
+
+_______________________________________________________________
+| Field    | Data Type | Constraints    | Description         |
+|----------|---------------------------------------------------
+| member_id| INTEGER   | Primary Key,   | Unique member ID    |
+|          |           | Auto Increment |                     |
+|----------|---------------------------------------------------
+| user_id  | INTEGER   | Foreign Key    | Linked user account |
+|----------|---------------------------------------------------
+| name     | TEXT      | NOT NULL       | Member name         |
+|----------|---------------------------------------------------
+| email    | TEXT      |        -       | Member email        |
+|----------|-----------|----------------|---------------------|
+| phone    | TEXT      |        -       |Member phone number  |
+|__________|___________|________________|_____________________|
+
+4.borrowings table
+------------------
+Stores book issue and return transactions.
+
+__________________________________________________________________
+| Field       | Data Type | Constraints    | Description         |
+|-------------|---------------------------------------------------
+| borrowing_id| INTEGER   | Primary Key,   | Unique borrowing ID |
+|             |           | Auto Increment |                     |
+|-------------|---------------------------------------------------
+| member_id   | INTEGER   | Foreign Key    | Member who borrowed |
+|             |           |                | the book            |
+|-------------|---------------------------------------------------
+| book_id     | INTEGER   | Foreign Key    | Borrowed book       |
+|-------------|---------------------------------------------------
+| issue_date  | TEXT      | NOT NULL       | Date the book was   |
+|             |           |                | issued              |
+|-------------|-----------|----------------|---------------------|
+| return_date | TEXT      |        -       | Date the book was   |
+|             |           |                | returned            | 
+|-------------|-----------|----------------|---------------------|
+| status      | TEXT      | NOT NULL       | Current borrowing   |
+|             |           |                | status              |
+|_____________|___________|________________|_____________________|
+
+5.book_request table
+--------------------
+Stores requests submitted by members for books.
+
+_____________________________________________________________
+| Field    | Data Type | Constraints    | Description       |
+|----------|-------------------------------------------------
+|request_id| INTEGER   | Primary Key,   | Unique request ID |
+|          |           | Auto Increment |                   |
+|----------|-------------------------------------------------
+| member_id|  INTEGER  | Foreign Key    | Members making    |
+|          |           |                | the request       |
+|----------|-------------------------------------------------
+| book_id  | INTEGER   | Foreign Key    | Requested book    |
+|----------|-------------------------------------------------
+|request   | TEXT      | NOT NULL       | Date of request   |
+|----------|-----------|----------------|-------------------|
+| status   | TEXT      | NOT NULL       | Pending,Approved  |
+|          |           |                | or Rejected       |
+|__________|___________|________________|___________________|
+
+Workflow
+========
+    User
+      |
+      v
+    Member
+      |
+      v 
+ Book Request
+      |
+      v
+  Librarian
+      |
+      v 
+   Approval
+      |
+      v 
+  Book Issue
+      |
+      v
+  Borrowing
+      |
+      v
+ Book Return 
+      |
+      v
+  Borrowing
+  History
+
+Conclusion
+==========
+The Library Management System provides a structured command-line solution for managing books, members, user accounts, 
+book requests, and borrowing transactions using Python and SQLite3. The system separates Librarian and Member 
+functionalities, allowing the Librarian to manage library operations while Members can search books, submit requests, 
+and track their borrowing activities. The implementation of CRUD operations, authentication, book request approval, book 
+issuing and returning, database relationships, validation, and exception handling demonstrates the practical application 
+of Python and SQL database concepts. Overall, the project provides an organized and user-friendly approach to managing 
+library resources and maintaining borrowing records through a relational database.
